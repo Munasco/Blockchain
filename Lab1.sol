@@ -3,7 +3,7 @@ pragma solidity ^0.8.18;
 
 library Array {
     // Sorts the array using the Bubble Sort algorithm
-    function sort(uint[] storage arr) internal {
+    function sort(uint[] storage arr) public {
         uint256 len = arr.length;
         for (uint256 i = 0; i < len; i++) {
             for (uint256 j = 0; j < len - i - 1; j++) {
@@ -18,14 +18,13 @@ library Array {
     }
 
     // Removes duplicates from a sorted array
-    function removeDuplicates(uint[] storage arr) internal {
+    function removeDuplicates(uint[] storage arr) public {
         if (arr.length == 0) return;
 
         uint[] memory uniqueArr = new uint[](arr.length);
-        uint256 uniqueCount = 0;
+        uint256 uniqueCount = 1;
 
         uniqueArr[0] = arr[0];
-        uniqueCount++;
 
         for (uint256 i = 1; i < arr.length; i++) {
             if (arr[i] != arr[i - 1]) {
@@ -46,6 +45,7 @@ library Array {
 }
 
 contract TestArray {
+    using Array for uint[];
     uint[] public numbers;
 
     constructor(uint[] memory _numbers) {
@@ -57,10 +57,10 @@ contract TestArray {
     }
 
     function sortNumbers() public {
-        Array.sort(numbers);
+        numbers.sort();
     }
 
     function removeDuplicatesFromNumbers() public {
-        Array.removeDuplicates(numbers);
+        numbers.removeDuplicates();
     }
 }
